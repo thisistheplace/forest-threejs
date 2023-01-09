@@ -1,6 +1,8 @@
 import React, {useEffect, useRef, useState, createRef} from 'react'
 import { extend, useFrame } from '@react-three/fiber'
-import { useGLTF, ContactShadows } from '@react-three/drei'
+import { useGLTF, ContactShadows, Instance, Instances } from '@react-three/drei'
+
+import { getTreeLocations } from './TreePositions'
 
 import * as THREE from 'three'
 
@@ -11,58 +13,37 @@ function loadScene(url){
 }
 
 const Trees = (props) => {
-  const ref = useRef()
-  const meshRef = createRef()
-  const [geom, setGeom] = useState(new THREE.BufferGeometry())
-  const [mat, setMat] = useState(new THREE.MeshBasicMaterial())
-  const [spacing, setSpacing] = useState(props.spacing)
-  const [totalX, setTotalX] = useState(props.totalX)
-  const [totalZ, setTotalZ] = useState(props.totalZ)
-  const [url, setUrl] = useState(props.url)
-
+  console.log(props)
+  const scene = loadScene(props.url)
+  const ntrees = props.totalX * props.totalZ 
   const lookAt = new THREE.Vector3(0, 10, 0)
 
-  const temp = new THREE.Object3D()
-
-  const total = totalX * totalZ
-  var count = 0
-  const [offset, setOffset] = useState(new THREE.Vector3(0, 0, 0))  
-  
-  useEffect(() => {
-    const scene = loadScene(url)
-    setGeom(scene.children[0].geometry)
-    setMat(scene.children[0].material)
-
-    setOffset(new THREE.Vector3(
-      spacing * totalX / 2.,
-      spacing * totalZ / 2.,
-    ))
-
-    // Set positions
-    for (let x = 0; x < totalX; x++) {
-      for (let z = 0; z < totalZ; z++) {
-        temp.position.set(
-          (Math.random() < 0.5 ? -1 : 1) * Math.random() * x * spacing - offset.x,
-          0,
-          (Math.random() < 0.5 ? -1 : 1) * Math.random() * z * spacing - offset.z,
-        )
-        temp.updateMatrix()
-        meshRef.current.setMatrixAt(count, temp.matrix)
-        count++
-      }
-    }
-  
-    // Update the instance
-    meshRef.current.instanceMatrix.needsUpdate = true
-  }, [props])
-
-  useFrame((state, delta)=>{
+  useFrame((state)=>{
     state.camera.lookAt(lookAt)
   }, [])
 
   return (
-    <group ref={ref} dispose={null}>
-      <instancedMesh ref={meshRef} args={[null, null, total]} geometry={geom} material={mat} castShadow={true}/>
+    <Instances range={ntrees} material={scene.children[0].material} geometry={scene.children[0].geometry}>
+      <group position={[0, 0, 0]}>
+        {getTreeLocations(ntrees, props.totalX, props.totalZ, props.spacing).map((props, i) => (
+          <Tree key={i} {...props} />
+        ))}
+      </group>
+    </Instances>
+  )
+}
+  
+function Tree({ color = new THREE.Color(), ...props }) {
+  const ref = useRef()
+  const [hovered, setHover] = useState(false)
+
+  useFrame(() => {
+    ref.current.color.lerp(color.set(hovered ? 'red' : 'white'), hovered ? 1 : 0.1)
+  })
+  
+  return (
+    <group {...props}>
+      <Instance ref={ref} onPointerOver={(e) => (e.stopPropagation(), setHover(true))} onPointerOut={(e) => setHover(false)} />
     </group>
   )
 }
