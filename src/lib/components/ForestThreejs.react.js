@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-import React, { Suspense } from 'react'
+import React, { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import {Loader, OrbitControls} from '@react-three/drei'
+import {Loader, OrbitControls, Stats} from '@react-three/drei'
 
 import {Fog} from "../model/fog"
 import {Lights} from "../model/lights"
@@ -25,6 +25,7 @@ function ForestThreejs(props) {
         <div id={props.id} style={{"height":"100%", "width":"100%"}}>
             <Canvas shadows style={{'background':'lightblue'}} camera={{position: [75, 30, 75], fov:50, aspect:window.innerWidth / window.innerHeight, near: 0.1, far: 2000}}>
                 <OrbitControls/>
+                <Stats showPanel={0} className="stats" {...props} />
                 <Suspense fallback={null}>
                     <Model {...props}/>
                 </Suspense>
