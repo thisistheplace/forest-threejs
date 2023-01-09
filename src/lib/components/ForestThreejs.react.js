@@ -37,7 +37,7 @@ function ForestThreejs(props) {
 ForestThreejs.defaultProps = {
     totalX: 50,
     totalZ: 50,
-    spacing: 35
+    spacing: 40
 };
 
 ForestThreejs.propTypes = {

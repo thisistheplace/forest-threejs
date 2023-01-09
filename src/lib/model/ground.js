@@ -11,7 +11,7 @@ const Ground = (props) => {
   const texture = useLoader(TextureLoader, 'assets/ground.jpeg')
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
-  texture.repeat.set( 10, 10 );
+  texture.repeat.set( 4, 4 );
 
   useEffect(() => {
     if (!ref.current)return
@@ -20,7 +20,7 @@ const Ground = (props) => {
   }, [])
 
   return (
-    <mesh ref={ref}>
+    <mesh ref={ref} receiveShadow={true}>
       <planeGeometry args={[4000, 4000]} />
       <meshStandardMaterial map={texture}/>
     </mesh>
