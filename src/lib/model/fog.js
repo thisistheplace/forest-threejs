@@ -5,7 +5,7 @@ const Fog = (props) => {
 
   return (
     <>
-      <fog ref={ref} args={['lightblue', 1, 2]}/>
+      <fog ref={ref} attach="fog" color="lightgrey" near={20} far={200} />
     </>
   )
 }

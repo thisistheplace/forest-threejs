@@ -6,14 +6,16 @@ import {Loader, OrbitControls} from '@react-three/drei'
 
 import {Fog} from "../model/fog"
 import {Lights} from "../model/lights"
-import {Trees} from "../model/trees"
+import {Forest} from "../model/forest"
+import { Ground } from '../model/ground';
 
 const Model = (props) => {
     return (
         <>
-            <Trees {...props}/>
+            <Forest {...props}/>
             <Lights {...props}/>
             <Fog {...props}/>
+            <Ground/>
         </>
     )
 }
@@ -21,10 +23,10 @@ const Model = (props) => {
 function ForestThreejs(props) {
     return (
         <div id={props.id} style={{"height":"100%", "width":"100%"}}>
-            <Canvas shadows style={{'background':'lightblue'}} camera={{position: [20, 50, 200], fov:10, aspect:window.innerWidth / window.innerHeight, near: 0.1, far: 1000}}>
+            <Canvas shadows style={{'background':'lightblue'}} camera={{position: [75, 30, 75], fov:50, aspect:window.innerWidth / window.innerHeight, near: 0.1, far: 2000}}>
                 <OrbitControls/>
                 <Suspense fallback={null}>
-                    <Model {...props}/>
+                    <Model totalX={props.totalX} totalZ={props.totalZ} spacing={props.spacing}/>
                 </Suspense>
             </Canvas>
             <Loader />
@@ -33,10 +35,16 @@ function ForestThreejs(props) {
 }
 
 ForestThreejs.defaultProps = {
+    totalX: 50,
+    totalZ: 50,
+    spacing: 35
 };
 
 ForestThreejs.propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    totalX: PropTypes.number,
+    totalZ: PropTypes.number,
+    spacing: PropTypes.number
 };
 
 export default ForestThreejs;
