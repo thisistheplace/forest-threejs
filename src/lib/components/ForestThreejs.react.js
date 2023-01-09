@@ -14,7 +14,7 @@ const Model = (props) => {
         <>
             <Forest {...props}/>
             <Lights {...props}/>
-            {/* <Fog {...props}/> */}
+            <Fog {...props}/>
             <Ground/>
         </>
     )
@@ -35,9 +35,9 @@ function ForestThreejs(props) {
 }
 
 ForestThreejs.defaultProps = {
-    totalX: 500,
-    totalZ: 10,
-    spacing: 1
+    totalX: 100,
+    totalZ: 100,
+    spacing: 40
 };
 
 ForestThreejs.propTypes = {

@@ -15,7 +15,6 @@ const Ground = (props) => {
 
   useEffect(() => {
     if (!ref.current)return
-    console.log(ref.current)
     ref.current.rotateX(-Math.PI / 2)
   }, [])
 
