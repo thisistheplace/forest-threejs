@@ -5,7 +5,7 @@ import {Trees} from './trees'
 
 const TREE_MODELS = {
   "beech": "/assets/models/beech.gltf",
-  "lime": "/assets/models/lime.gltf"
+  "lime": "/assets/models/lime.gltf",
   // "spruce": "/assets/models/spruce.gltf"
 }
 
