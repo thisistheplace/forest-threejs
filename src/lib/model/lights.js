@@ -6,6 +6,7 @@ const Lights = (props) => {
   return (
     <group ref={ref}>
       <ambientLight/>
+      <directionalLight args={['lightblue', 1]}/>
     </group>
   )
 }

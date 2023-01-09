@@ -21,7 +21,7 @@ const Model = (props) => {
 function ForestThreejs(props) {
     return (
         <div id={props.id} style={{"height":"100%", "width":"100%"}}>
-            <Canvas shadows style={{'background':'white'}} camera={{position: [10, 10, 10], fov:40, aspect:window.innerWidth / window.innerHeight, near: 10, far: 100}}>
+            <Canvas shadows style={{'background':'lightblue'}} camera={{position: [20, 50, 200], fov:10, aspect:window.innerWidth / window.innerHeight, near: 0.1, far: 1000}}>
                 <OrbitControls/>
                 <Suspense fallback={null}>
                     <Model {...props}/>

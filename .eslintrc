@@ -97,7 +97,7 @@
     "react/no-did-update-set-state": ["error"],
     "react/no-direct-mutation-state": ["error"],
     "react/no-is-mounted": ["error"],
-    "react/no-unknown-property": ["error"],
+    "react/no-unknown-property": ["off"],
     "react/prefer-es6-class": ["error", "always"],
     "react/prop-types": "error",
     "valid-jsdoc": ["off"],
@@ -107,7 +107,7 @@
         "exceptions": ["*"]
       }
     }],
-    "no-unused-vars": ["error", {
+    "no-unused-vars": ["off", {
         "args": "after-used",
         "argsIgnorePattern": "^_",
         "caughtErrorsIgnorePattern": "^e$"
