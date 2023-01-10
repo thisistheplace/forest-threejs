@@ -14,7 +14,7 @@ const Model = (props) => {
         <>
             <Forest {...props}/>
             <Lights {...props}/>
-            <Fog {...props}/>
+            {/* <Fog {...props}/> */}
             <Ground/>
         </>
     )
@@ -23,7 +23,7 @@ const Model = (props) => {
 function ForestThreejs(props) {
     return (
         <div id={props.id} style={{"height":"100%", "width":"100%"}}>
-            <Canvas shadows style={{'background':'lightblue'}} camera={{position: [75, 30, 75], fov:50, aspect:window.innerWidth / window.innerHeight, near: 0.1, far: 2000}}>
+            <Canvas shadows style={{'background':'lightblue'}} camera={{position: [75, 30, 75], fov:50, aspect:window.innerWidth / window.innerHeight, near: 0.1, far: 10000}}>
                 <OrbitControls/>
                 <Stats showPanel={0} className="stats" {...props} />
                 <Suspense fallback={null}>
