@@ -86,7 +86,6 @@ const Trees = (props) => {
       meshRef.current.instanceMatrix.needsUpdate = true
 
       count++
-      growCount = 0
     }
   }, [])
 
