@@ -10,13 +10,15 @@
 }
 
 \usage{
-forestThreejs(id=NULL, spacing=NULL, totalX=NULL, totalZ=NULL)
+forestThreejs(id=NULL, spacing=NULL, stats=NULL, totalX=NULL, totalZ=NULL)
 }
 
 \arguments{
 \item{id}{Character. }
 
 \item{spacing}{Numeric. }
+
+\item{stats}{Logical. }
 
 \item{totalX}{Numeric. }
 

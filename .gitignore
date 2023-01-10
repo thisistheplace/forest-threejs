@@ -285,3 +285,5 @@ R/
 forest_threejs
 deps
 inst
+
+.build_cache/

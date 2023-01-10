@@ -23,3 +23,14 @@ config
 .travis.yml
 CHANGELOG.md
 README.md
+
+R/
+
+# build output
+forest_threejs
+deps
+inst
+
+.build_cache/
+
+venv/
