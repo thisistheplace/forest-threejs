@@ -1,20 +1,17 @@
 import React, {useRef, useEffect, useState} from 'react'
-import { useLoader, extend } from '@react-three/fiber'
-import { TextureLoader } from 'three/src/loaders/TextureLoader'
+import { extend } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 
 import * as THREE from 'three'
 
 extend({THREE})
 
+const url = () => {return "assets/models/mountains.glb"}
+
 const Ground = (props) => {
   const ref = useRef()
-  const texture = useLoader(TextureLoader, 'assets/ground.jpeg')
-  const mountainScene = useGLTF("assets/models/mountains.glb")
-  const [mountains, setMountains] = useState(mountainScene.scene.children[0])
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.wrapT = THREE.RepeatWrapping;
-  texture.repeat.set( 4, 4 );
+  const mountainScene = useGLTF(url())
+  const [mountains, setMountains] = useState(mountainScene.scene.children[2])
 
   useEffect(() => {
     if (!ref.current)return
@@ -32,3 +29,5 @@ const Ground = (props) => {
 }
 
 export {Ground}
+
+useGLTF.preload(url())

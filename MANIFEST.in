@@ -13,3 +13,4 @@ include assets/models/mountains.glb
 include assets/models/beech.gltf
 include assets/models/lime.gltf
 include assets/models/spruce.gltf
+include assets/img/waternormals.jpg

@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState, createRef} from 'react'
-import { extend, useFrame, useThree } from '@react-three/fiber'
+import { extend, useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 
 import * as THREE from 'three'
@@ -20,13 +20,11 @@ const Trees = (props) => {
   const [totalZ, setTotalZ] = useState(props.totalZ)
   const [url, setUrl] = useState(props.url)
 
-  const get = useThree((state) => state.get)
   const ray = new THREE.Raycaster()
-  const move = new THREE.Vector3()
   const up = new THREE.Vector3(0, 1, 0).normalize()
   const down = new THREE.Vector3(0, -1, 0).normalize()
 
-  const lookAt = new THREE.Vector3(-100, 400, 0)
+  const lookAt = new THREE.Vector3(-500, 300, 0)
 
   const temp = new THREE.Object3D()
 
