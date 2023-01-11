@@ -1,6 +1,6 @@
 Package: forestThreejs
 Title: Threejs rendering of a foggy forest built into a dash component
-Version: 0.0.2
+Version: 0.0.4
 Description: Threejs rendering of a foggy forest built into a dash component
 Depends: R (>= 3.0.2)
 Imports: 

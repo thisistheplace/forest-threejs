@@ -33,4 +33,8 @@ inst
 
 .build_cache/
 
+*.blend*
+build.txt
+
+dist/
 venv/
