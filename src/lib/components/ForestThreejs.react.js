@@ -20,7 +20,7 @@ const Model = (props) => {
             <Forest {...props}/>
             <Daytime {...{sunRef: sunRef}}/>
             <Lights {...props}/>
-            {/* <Fog {...props}/> */}
+            <Fog {...props}/>
             <Ocean {...{sunRef: sunRef}}/>
         </>
     )
@@ -29,7 +29,7 @@ const Model = (props) => {
 function ForestThreejs(props) {
     return (
         <div id={props.id} style={{"height":"100%", "width":"100%"}}>
-            <Canvas shadows style={{'background':'lightblue'}} camera={{position: [1300, 600, -900], fov:50, aspect:window.innerWidth / window.innerHeight, near: 0.1, far: 10000}}>
+            <Canvas style={{'background':'lightblue'}} camera={{position: [1300, 600, -900], fov:50, aspect:window.innerWidth / window.innerHeight, near: 0.1, far: 10000}}>
                 <OrbitControls/>
                 <TreeStats {...props}/>
                 {/* <axesHelper scale={1000}/> */}
@@ -45,7 +45,7 @@ function ForestThreejs(props) {
 ForestThreejs.defaultProps = {
     totalX: 100,
     totalZ: 100,
-    spacing: 60,
+    spacing: 30,
     stats: true
 };
 

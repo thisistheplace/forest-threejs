@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState, createRef} from 'react'
-import { extend, useFrame } from '@react-three/fiber'
+import { extend, useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 
 import * as THREE from 'three'
@@ -31,6 +31,8 @@ const Trees = (props) => {
   const ray = new THREE.Raycaster()
   ray.firstHitOnly = true;
 
+  const get = useThree((state) => state.get)
+
   const up = new THREE.Vector3(0, 1, 0).normalize()
   const down = new THREE.Vector3(0, -1, 0).normalize()
 
@@ -40,61 +42,59 @@ const Trees = (props) => {
 
   const ntrees = totalX * totalZ
   var count = 0
-  var growCount = 0
   
   useEffect(() => {
     const scene = loadScene(url)
     setGeom(scene.children[0].geometry)
     setMat(scene.children[0].material)
-  }, [])
 
-  useFrame((state, delta)=>{
-    state.camera.lookAt(lookAt)
+    // Get state
+    const state = get()
 
-    // Move trees
-    if (!(growCount === 20)){
-      growCount++
-    } else if (count < ntrees){
-
-      var x = count / totalZ
-      var z = count / totalX
-
-      temp.position.set(
-        (Math.random() < 0.5 ? -1 : 1) * Math.random() * x * spacing,
-        0,
-        (Math.random() < 0.5 ? -1 : 1) * Math.random() * z * spacing,
-      )
-
-      // Adjust position to surface
-      ray.set(temp.position, down)
-      var intersects = ray.intersectObject( state.scene.children[0], false )
-      if (intersects.length > 0){
+    // Set positions
+    for (let x = 0; x < totalX; x++) {
+      for (let z = 0; z < totalZ; z++) {
         temp.position.set(
-          intersects[0].point.x,
-          intersects[0].point.y,
-          intersects[0].point.z
+          (Math.random() < 0.5 ? -1 : 1) * Math.random() * x * spacing,
+          0,
+          (Math.random() < 0.5 ? -1 : 1) * Math.random() * z * spacing
         )
-      } else {
-        ray.set(temp.position, up)
-        intersects = ray.intersectObject( state.scene.children[0], false )
+
+        // Raycast to position tree on terrain
+        ray.set(temp.position, down)
+        var intersects = ray.intersectObject( state.scene.children[0], false )
         if (intersects.length > 0){
           temp.position.set(
             intersects[0].point.x,
             intersects[0].point.y,
             intersects[0].point.z
           )
+        } else {
+          ray.set(temp.position, up)
+          intersects = ray.intersectObject( state.scene.children[0], false )
+          if (intersects.length > 0){
+            temp.position.set(
+              intersects[0].point.x,
+              intersects[0].point.y,
+              intersects[0].point.z
+            )
+          }
         }
+
+        temp.rotation.set(0, Math.random(), 0)
+        var randomScale = (Math.random() < 0.5 ? -1 : 1) * Math.random() / 2 + 1
+        temp.scale.set(randomScale, randomScale, randomScale)
+        temp.updateMatrix()
+        meshRef.current.setMatrixAt(count, temp.matrix)
+        count++
       }
-
-      temp.rotation.set(0, Math.random(), 0)
-      var randomScale = (Math.random() < 0.5 ? -1 : 1) * Math.random() / 2 + 1
-      temp.scale.set(randomScale, randomScale, randomScale)
-      temp.updateMatrix()
-      meshRef.current.setMatrixAt(count, temp.matrix)
-      meshRef.current.instanceMatrix.needsUpdate = true
-
-      count++
     }
+    // Update the instance
+    meshRef.current.instanceMatrix.needsUpdate = true
+  }, [props])
+
+  useFrame((state, delta)=>{
+    state.camera.lookAt(lookAt)
   }, [])
 
   return (
