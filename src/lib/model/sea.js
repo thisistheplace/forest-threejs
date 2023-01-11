@@ -27,7 +27,7 @@ const Ocean = (props) => {
     })
 
     ref.current.material.uniforms.sunDirection.value.copy( props.sunRef.current.position ).normalize()
-    newGeom.scale(1000, 1000, 1000)
+    newGeom.scale(850, 850, 850)
     newGeom.translate(-1000, -50, -1000)
     setGeom(newGeom)
     const waterOptions = {
@@ -40,8 +40,9 @@ const Ocean = (props) => {
       sunDirection: props.sunRef.current.position.clone().normalize(),
       sunColor: 0xffffff,
       waterColor: 0x001e0f,
-      distortionScale: 3.7,
-      fog: false
+      distortionScale: 0,
+      fog: false,
+      eye: new THREE.Vector3(0, 10000, 0)
     }
     setOptions(waterOptions)
   }, [])

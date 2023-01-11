@@ -30,7 +30,7 @@ function ForestThreejs(props) {
     return (
         <div id={props.id} style={{"height":"100%", "width":"100%"}}>
             <Canvas style={{'background':'white'}} camera={{position: [1300, 600, -900], fov:50, aspect:window.innerWidth / window.innerHeight, near: 0.1, far: 5000}}>
-                <OrbitControls/>
+                <OrbitControls maxPolarAngle={Math.PI / 2.2}/>
                 <TreeStats {...props}/>
                 {/* <axesHelper scale={1000}/> */}
                 <Suspense fallback={null}>

@@ -32,7 +32,7 @@ const Ground = (props) => {
 
   return (
     // mountains is a Mesh object
-    <primitive object={mountains} ref={ref} receiveShadow={true} castShadown={true}/>
+    <primitive object={mountains} ref={ref} receiveShadow={false} castShadown={false}/>
   )
 }
 

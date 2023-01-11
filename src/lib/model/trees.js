@@ -99,7 +99,7 @@ const Trees = (props) => {
 
   return (
     <group ref={ref} dispose={null}>
-      <instancedMesh ref={meshRef} args={[null, null, ntrees]} geometry={geom} material={mat} />
+      <instancedMesh ref={meshRef} args={[null, null, ntrees]} geometry={geom} material={mat} castShadow={false} />
     </group>
   )
 }
