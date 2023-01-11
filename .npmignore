@@ -35,6 +35,7 @@ inst
 
 *.blend*
 build.txt
+*.bin
 
 dist/
 venv/

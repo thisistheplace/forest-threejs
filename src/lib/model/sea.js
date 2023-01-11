@@ -13,14 +13,23 @@ const Ocean = (props) => {
 
   const ref = useRef()
   const mountainScene = useGLTF(url())
-  const [seaPlane, setSeaPlane] = useState(mountainScene.scene.children[0].geometry)
+  const [geom, setGeom] = useState(new THREE.BufferGeometry())
   const [options, setOptions] = useState({})
 
   useEffect(() => {
     if (!ref.current || !props.sunRef.current) {return}
+    // Get geometry
+    var newGeom = null
+    mountainScene.scene.children.forEach((child)=>{
+      if (child.name === "Sea"){
+        newGeom = child.geometry
+      }
+    })
+
     ref.current.material.uniforms.sunDirection.value.copy( props.sunRef.current.position ).normalize()
-    seaPlane.scale(1000, 1000, 1000)
-    seaPlane.translate(-1000, -50, -1000)
+    newGeom.scale(1000, 1000, 1000)
+    newGeom.translate(-1000, -50, -1000)
+    setGeom(newGeom)
     const waterOptions = {
       textureWidth: 512,
       textureHeight: 512,
@@ -42,7 +51,7 @@ const Ocean = (props) => {
   })
 
   return (
-    <water ref={ref} args={[seaPlane, options]} />
+    <water ref={ref} args={[geom, options]} />
   )
 }
 
