@@ -20,7 +20,7 @@ const Model = (props) => {
             <Forest {...props}/>
             <Daytime {...{sunRef: sunRef}}/>
             <Lights {...props}/>
-            <Fog {...props}/>
+            {/* <Fog {...props}/> */}
             <Ocean {...{sunRef: sunRef}}/>
         </>
     )

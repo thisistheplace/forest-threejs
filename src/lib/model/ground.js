@@ -3,8 +3,14 @@ import { extend } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 
 import * as THREE from 'three'
-
 extend({THREE})
+
+// Higher performance raycasting...
+import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh'
+// Add the extension functions
+THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree
+THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree
+THREE.Mesh.prototype.raycast = acceleratedRaycast
 
 const url = () => {return "assets/models/mountains.glb"}
 
@@ -20,11 +26,13 @@ const Ground = (props) => {
     mountains.scale.multiplyScalar(1000)
     mountains.material.side = THREE.DoubleSide
     mountains.updateMatrixWorld()
+    // Call this to help with BVH raycasting
+    mountains.geometry.computeBoundsTree()
   }, [])
 
   return (
     // mountains is a Mesh object
-    <primitive object={mountains} ref={ref} receiveShadow={true}/>
+    <primitive object={mountains} ref={ref} receiveShadow={true} castShadown={true}/>
   )
 }
 

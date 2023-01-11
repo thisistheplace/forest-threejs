@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState, createRef} from 'react'
 import { useFrame, extend } from '@react-three/fiber'
 import { Water } from 'three/examples/jsm/objects/Water'
-// import { TextureLoader, PlaneBufferGeometry, RepeatWrapping, AmbientLight } from 'three'
 
 import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
@@ -28,7 +27,7 @@ const Ocean = (props) => {
       waterNormals: new THREE.TextureLoader().load( '/assets/img/waternormals.jpg', function ( texture ) {
           texture.wrapS = texture.wrapT = THREE.RepeatWrapping
       } ),
-      alpha: 0.9,
+      alpha: 0.8,
       sunDirection: props.sunRef.current.position.clone().normalize(),
       sunColor: 0xffffff,
       waterColor: 0x001e0f,

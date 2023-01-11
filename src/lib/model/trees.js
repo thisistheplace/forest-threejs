@@ -6,6 +6,13 @@ import * as THREE from 'three'
 
 extend({THREE})
 
+// Higher performance raycasting...
+import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh'
+// Add the extension functions
+THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree
+THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree
+THREE.Mesh.prototype.raycast = acceleratedRaycast
+
 function loadScene(url){
   return useGLTF(url).scene
 }
@@ -20,7 +27,10 @@ const Trees = (props) => {
   const [totalZ, setTotalZ] = useState(props.totalZ)
   const [url, setUrl] = useState(props.url)
 
+  // Use BVH raycaster
   const ray = new THREE.Raycaster()
+  ray.firstHitOnly = true;
+
   const up = new THREE.Vector3(0, 1, 0).normalize()
   const down = new THREE.Vector3(0, -1, 0).normalize()
 
