@@ -1,6 +1,6 @@
 {
   "name": "forest_threejs",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Threejs rendering of a foggy forest built into a dash component",
   "repository": {
     "type": "git",
