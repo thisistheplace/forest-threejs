@@ -36,6 +36,8 @@ inst
 *.blend*
 build.txt
 *.bin
+*.glb
+*.gltf
 
 dist/
 venv/
